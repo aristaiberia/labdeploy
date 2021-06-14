@@ -8,7 +8,8 @@ Playbook tasks are:
 * Create VMs in KVM hypervisor (definition based in a XML template)
 * Setup EOS config for each VM based in a jinja2 template (including configurable systemid, management ip, usernames or whatever you want to include)
 * Start VMs instances
-* Setup links using openflow rules (with this LLDP, lag, and other L2 protocolos work fine)
+* Setup switch interface links using openflow rules (with this LLDP, lag, and other L2 protocolos work fine)
+* Management interface is setup by using macvlan (so switch management ip's will be reacheable in the same subnet where the host hypervisor physical nic is connected to)
 
 In the event that you only want to setup the links (for instance because VMs are already setup from previous session) you can call ansible-playbook with --tags links
 
