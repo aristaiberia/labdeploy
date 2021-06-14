@@ -1,0 +1,84 @@
+---
+- name: create lab
+  hosts: kvmhosts
+  vars_files:
+    - vars/topo.yml
+  vars:
+    kvm_images_dir: /var/lib/libvirt/images
+  tasks:
+
+    - name: copy disks
+      copy:
+        src: "{{ item.disk_src }}" 
+        dest: "{{ kvm_images_dir }}/{{ item.name }}.qcow2"
+        owner: root
+        group: root
+        mode: 0644
+      loop: "{{ vms }}"
+
+    - name: create vms
+      vars:
+        xml: "templates/VEOSLAB.xml"
+      virt:
+        command: define
+        xml: "{{ lookup('template', xml) }}"
+      loop: "{{ vms }}"
+
+    - name: render eos config
+      template:
+        src: "{{item.eos_config}}"
+        dest: "/tmp/{{ item.name }}.eosconfig"
+        owner: root
+        group: root
+        mode: 0644
+      loop: "{{ vms }}"
+
+    - name: create mountpoints
+      file:
+        path: "/mnt/{{ item.name }}"
+        state: directory
+        owner: root
+        group: root
+        mode: 0777
+      loop: "{{ vms }}"
+
+    - name: switch startup-config
+      # see man guestmount
+      vars:
+        m: >-
+          /usr/bin/guestmount -a {{ kvm_images_dir }}/{{ item.name }}.qcow2 -m /dev/sda2 --rw /mnt/{{ item.name }};
+          /usr/bin/cp /tmp/{{ item.name }}.eosconfig /mnt/{{ item.name }}/startup-config;
+          echo "SYSTEMMACADDR="{{ item.system_id }} > /mnt/{{ item.name }}/veos-config;
+          /usr/bin/sleep 20;
+          /usr/bin/guestunmount /mnt/{{ item.name }}
+      shell:
+        cmd: "{{ m }}"
+      loop: "{{ vms }}"
+
+    - name: delete mountpoints
+      file:
+        path: "/mnt/{{ item.name }}"
+        state: absent
+        owner: root
+        group: root
+      loop: "{{ vms }}"
+
+    - name: start switch
+      virt:
+        name: "{{ item.name }}"
+        state: running
+      loop: "{{ vms }}"
+
+    - name: empty flows in ovs instance
+      shell:
+        cmd: "/usr/bin/ovs-ofctl del-flows {{ ovs_instance }}"
+
+    - name: connect links
+      tags: links
+      vars:
+        m: >-
+          /usr/bin/ovs-ofctl add-flow {{ ovs_instance }} in_port={{ item.port1 }},actions=output:{{ item.port2 }};
+          /usr/bin/ovs-ofctl add-flow {{ ovs_instance }} in_port={{ item.port2 }},actions=output:{{ item.port1 }}
+      shell:
+        cmd: "{{ m }}"
+      loop: "{{ links }}"

@@ -1,0 +1,79 @@
+---
+vms:
+  - name: sw1
+    disk_src: files/disks/VEOSLAB4253M.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0101.0101"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:01:01:01:01"
+    ma1_ip: "10.100.0.151/24"
+    default_gw: "10.100.0.1"
+    ma1_host_dev: enp9s0
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:01:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:01:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:01:00:00:03"
+        ovs: ovs0
+  - name: sw2
+    disk_src: files/disks/VEOSLAB4253M.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0202.0202"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:02:02:02:02"
+    ma1_ip: "10.100.0.152/24"
+    default_gw: "10.100.0.1"
+    ma1_host_dev: enp9s0
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:02:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:02:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:02:00:00:03"
+        ovs: ovs0
+  - name: sw3
+    disk_src: files/disks/VEOSLAB4253M.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0303.0303"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:03:03:03:03"
+    ma1_ip: "10.100.0.153/24"
+    default_gw: "10.100.0.1"
+    ma1_host_dev: enp9s0
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:03:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:03:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:03:00:00:03"
+        ovs: ovs0
+
+ovs_instance: ovs0
+links:
+  - port1: sw1_et1
+    port2: sw2_et1
+  - port1: sw1_et2
+    port2: sw2_et2
+  - port1: sw1_et3
+    port2: sw3_et1
+  - port1: sw2_et3
+    port2: sw3_et2

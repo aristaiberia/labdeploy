@@ -1,0 +1,20 @@
+transceiver qsfp default-mode 4x10G
+!
+service routing protocols model multi-agent
+!
+username {{ item.user }} secret {{ item.pass }} privilege 15 role network-admin
+!
+hostname {{ item.name }}
+!
+spanning-tree mode mstp
+!
+no aaa root
+!
+interface Management1
+   ip address {{ item.ma1_ip }}
+!
+no ip routing
+!
+ip route 0.0.0.0/0 {{ item.default_gw }}
+!
+end
