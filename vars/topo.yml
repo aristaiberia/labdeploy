@@ -1,14 +1,14 @@
 ---
 vms:
-  - name: sw1
-    disk_src: files/disks/vEOS-lab-4.27.1M
+  - name: dc1s1
+    disk_src: files/disks/EOS.qcow2
     kb_mem: 2097152
     eos_config: templates/startup-config
     system_id: "5054.0101.0101"
     ma1_ovs: ovs0
     ma1_mac: "50:54:01:01:01:01"
-    ma1_ip: "10.100.0.151/24"
-    default_gw: "10.100.0.1"
+    ma1_ip: "192.168.0.151/24"
+    default_gw: "192.168.0.1"
     ma1_host_dev: eno1
     user: admin
     pass: admin123
@@ -22,15 +22,25 @@ vms:
       - name: et3
         mac: "50:54:01:00:00:03"
         ovs: ovs0
-  - name: sw2
-    disk_src: files/disks/vEOS-lab-4.27.1M
+      - name: et4
+        mac: "50:54:01:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:01:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:01:00:00:06"
+        ovs: ovs0
+
+  - name: dc1s2
+    disk_src: files/disks/EOS.qcow2
     kb_mem: 2097152
     eos_config: templates/startup-config
     system_id: "5054.0202.0202"
     ma1_ovs: ovs0
     ma1_mac: "50:54:02:02:02:02"
-    ma1_ip: "10.100.0.152/24"
-    default_gw: "10.100.0.1"
+    ma1_ip: "192.168.0.152/24"
+    default_gw: "192.168.0.1"
     ma1_host_dev: eno1
     user: admin
     pass: admin123
@@ -44,15 +54,25 @@ vms:
       - name: et3
         mac: "50:54:02:00:00:03"
         ovs: ovs0
-  - name: sw3
-    disk_src: files/disks/vEOS-lab-4.27.1M
+      - name: et4
+        mac: "50:54:02:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:02:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:02:00:00:06"
+        ovs: ovs0
+
+  - name: dc1l1
+    disk_src: files/disks/EOS.qcow2
     kb_mem: 2097152
     eos_config: templates/startup-config
     system_id: "5054.0303.0303"
     ma1_ovs: ovs0
     ma1_mac: "50:54:03:03:03:03"
-    ma1_ip: "10.100.0.153/24"
-    default_gw: "10.100.0.1"
+    ma1_ip: "192.168.0.153/24"
+    default_gw: "192.168.0.1"
     ma1_host_dev: eno1
     user: admin
     pass: admin123
@@ -66,14 +86,365 @@ vms:
       - name: et3
         mac: "50:54:03:00:00:03"
         ovs: ovs0
+      - name: et4
+        mac: "50:54:03:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:03:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:03:00:00:06"
+        ovs: ovs0
+
+  - name: dc1l2
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0404.0404"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:04:04:04:04"
+    ma1_ip: "192.168.0.154/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:04:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:04:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:04:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:04:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:04:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:04:00:00:06"
+        ovs: ovs0
+
+  - name: dc1l3
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0505.0505"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:05:05:05:05"
+    ma1_ip: "192.168.0.155/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:05:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:05:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:05:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:05:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:05:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:05:00:00:06"
+        ovs: ovs0
+
+  - name: dc1l4
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0606.0606"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:06:06:06:06"
+    ma1_ip: "192.168.0.156/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:06:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:06:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:06:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:06:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:06:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:06:00:00:06"
+        ovs: ovs0
+
+  - name: dc2s1
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0707.0707"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:07:07:07:07"
+    ma1_ip: "192.168.0.157/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:07:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:07:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:07:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:07:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:07:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:07:00:00:06"
+        ovs: ovs0
+
+  - name: dc2s2
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0808.0808"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:08:08:08:08"
+    ma1_ip: "192.168.0.158/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:08:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:08:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:08:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:08:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:08:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:08:00:00:06"
+        ovs: ovs0
+
+  - name: dc2l1
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0909.0909"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:09:09:09:09"
+    ma1_ip: "192.168.0.159/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:09:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:09:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:09:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:09:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:09:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:09:00:00:06"
+        ovs: ovs0
+
+  - name: dc2l2
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0a0a.0a0a"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:0a:0a:0a:0a"
+    ma1_ip: "192.168.0.160/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:0a:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:0a:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:0a:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:0a:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:0a:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:0a:00:00:06"
+        ovs: ovs0
+
+  - name: dc2l3
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0b0b.0b0b"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:0b:0b:0b:0b"
+    ma1_ip: "192.168.0.161/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:0b:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:0b:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:0b:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:0b:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:0b:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:0b:00:00:06"
+        ovs: ovs0
+
+  - name: dc2l4
+    disk_src: files/disks/EOS.qcow2
+    kb_mem: 2097152
+    eos_config: templates/startup-config
+    system_id: "5054.0c0c.0c0c"
+    ma1_ovs: ovs0
+    ma1_mac: "50:54:0c:0c:0c:0c"
+    ma1_ip: "192.168.0.162/24"
+    default_gw: "192.168.0.1"
+    ma1_host_dev: eno1
+    user: admin
+    pass: admin123
+    interfaces:
+      - name: et1
+        mac: "50:54:0c:00:00:01"
+        ovs: ovs0
+      - name: et2
+        mac: "50:54:0c:00:00:02"
+        ovs: ovs0
+      - name: et3
+        mac: "50:54:0c:00:00:03"
+        ovs: ovs0
+      - name: et4
+        mac: "50:54:0c:00:00:04"
+        ovs: ovs0
+      - name: et5
+        mac: "50:54:0c:00:00:05"
+        ovs: ovs0
+      - name: et6
+        mac: "50:54:0c:00:00:06"
+        ovs: ovs0
 
 ovs_instance: ovs0
 links:
-  - port1: sw1_et1
-    port2: sw2_et1
-  - port1: sw1_et2
-    port2: sw2_et2
-  - port1: sw1_et3
-    port2: sw3_et1
-  - port1: sw2_et3
-    port2: sw3_et2
+  - port1: dc1s1_et5
+    port2: dc1s2_et5
+  - port1: dc1s1_et6
+    port2: dc1s2_et6
+  - port1: dc1l1_et5
+    port2: dc1l2_et5
+  - port1: dc1l1_et6
+    port2: dc1l2_et6
+  - port1: dc1l3_et5
+    port2: dc1l4_et5
+  - port1: dc1l3_et6
+    port2: dc1l4_et6
+  - port1: dc1s1_et1
+    port2: dc1l1_et1
+  - port1: dc1s2_et1
+    port2: dc1l1_et2
+  - port1: dc1s1_et2
+    port2: dc1l2_et1
+  - port1: dc1s2_et2
+    port2: dc1l2_et2
+  - port1: dc1s1_et3
+    port2: dc1l3_et1
+  - port1: dc1s2_et3
+    port2: dc1l3_et2
+  - port1: dc1s1_et4
+    port2: dc1l4_et1
+  - port1: dc1s2_et2
+    port2: dc1l4_et2
+
+  - port1: dc2s1_et5
+    port2: dc2s2_et5
+  - port1: dc2s1_et6
+    port2: dc2s2_et6
+  - port1: dc2l1_et5
+    port2: dc2l2_et5
+  - port1: dc2l1_et6
+    port2: dc2l2_et6
+  - port1: dc2l3_et5
+    port2: dc2l4_et5
+  - port1: dc2l3_et6
+    port2: dc2l4_et6
+  - port1: dc2s1_et1
+    port2: dc2l1_et1
+  - port1: dc2s2_et1
+    port2: dc2l1_et2
+  - port1: dc2s1_et2
+    port2: dc2l2_et1
+  - port1: dc2s2_et2
+    port2: dc2l2_et2
+  - port1: dc2s1_et3
+    port2: dc2l3_et1
+  - port1: dc2s2_et3
+    port2: dc2l3_et2
+  - port1: dc2s1_et4
+    port2: dc2l4_et1
+  - port1: dc2s2_et4
+    port2: dc2l4_et2
+
+  - port1: dc1l3_et3
+    port2: dc2l3_et3
+  - port1: dc1l4_et3
+    port2: dc2l4_et3
