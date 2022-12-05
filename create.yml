@@ -42,15 +42,30 @@
         mode: 0777
       loop: "{{ vms }}"
 
-    - name: switch startup-config
+      #    - name: switch startup-config
       # see man guestmount
+      #      vars:
+      #        m: >-
+      #          /usr/bin/guestmount -a {{ kvm_images_dir }}/{{ item.name }}.qcow2 -m /dev/sda2 --rw /mnt/{{ item.name }};
+      #          /usr/bin/cp /tmp/{{ item.name }}.eosconfig /mnt/{{ item.name }}/startup-config;
+      #          echo "SYSTEMMACADDR="{{ item.system_id }} > /mnt/{{ item.name }}/veos-config;
+      #          /usr/bin/sleep 20;
+      #          /usr/bin/guestunmount /mnt/{{ item.name }}
+      #      shell:
+      #        cmd: "{{ m }}"
+      #      loop: "{{ vms }}"
+
+    - name: switch startup-config
+      # This task needs qemu-nbd installed in the hypervisor host
       vars:
         m: >-
-          /usr/bin/guestmount -a {{ kvm_images_dir }}/{{ item.name }}.qcow2 -m /dev/sda2 --rw /mnt/{{ item.name }};
+          modprobe nbd max_part=8
+          /usr/bin/qemu-nbd --connect=/dev/nbd0 {{ kvm_images_dir }}/{{ item.name }}.qcow2;
+          /usr/bin/mount /dev/nbd0p2 /mnt/{{ item.name }};
           /usr/bin/cp /tmp/{{ item.name }}.eosconfig /mnt/{{ item.name }}/startup-config;
           echo "SYSTEMMACADDR="{{ item.system_id }} > /mnt/{{ item.name }}/veos-config;
           /usr/bin/sleep 20;
-          /usr/bin/guestunmount /mnt/{{ item.name }}
+          /usr/bin/umount /mnt/{{ item.name }};
       shell:
         cmd: "{{ m }}"
       loop: "{{ vms }}"
@@ -70,6 +85,7 @@
       loop: "{{ vms }}"
 
     - name: empty flows in ovs instance
+      tags: links
       shell:
         cmd: "/usr/bin/ovs-ofctl del-flows {{ ovs_instance }}"
 
@@ -81,4 +97,14 @@
           /usr/bin/ovs-ofctl add-flow {{ ovs_instance }} in_port={{ item.port2 }},actions=output:{{ item.port1 }}
       shell:
         cmd: "{{ m }}"
+      loop: "{{ links }}"
+
+    - name: print links
+      tags: links
+      vars:
+        m: >-
+          /usr/bin/ovs-ofctl add-flow {{ ovs_instance }} in_port={{ item.port1 }},actions=output:{{ item.port2 }};
+          /usr/bin/ovs-ofctl add-flow {{ ovs_instance }} in_port={{ item.port2 }},actions=output:{{ item.port1 }}
+      debug:
+        msg: "{{ m }}"
       loop: "{{ links }}"

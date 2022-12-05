@@ -1,7 +1,7 @@
 ---
 vms:
   - name: sw1
-    disk_src: files/disks/VEOSLAB4253M.qcow2
+    disk_src: files/disks/vEOS-lab-4.27.1M
     kb_mem: 2097152
     eos_config: templates/startup-config
     system_id: "5054.0101.0101"
@@ -9,7 +9,7 @@ vms:
     ma1_mac: "50:54:01:01:01:01"
     ma1_ip: "10.100.0.151/24"
     default_gw: "10.100.0.1"
-    ma1_host_dev: enp9s0
+    ma1_host_dev: eno1
     user: admin
     pass: admin123
     interfaces:
@@ -23,7 +23,7 @@ vms:
         mac: "50:54:01:00:00:03"
         ovs: ovs0
   - name: sw2
-    disk_src: files/disks/VEOSLAB4253M.qcow2
+    disk_src: files/disks/vEOS-lab-4.27.1M
     kb_mem: 2097152
     eos_config: templates/startup-config
     system_id: "5054.0202.0202"
@@ -31,7 +31,7 @@ vms:
     ma1_mac: "50:54:02:02:02:02"
     ma1_ip: "10.100.0.152/24"
     default_gw: "10.100.0.1"
-    ma1_host_dev: enp9s0
+    ma1_host_dev: eno1
     user: admin
     pass: admin123
     interfaces:
@@ -45,7 +45,7 @@ vms:
         mac: "50:54:02:00:00:03"
         ovs: ovs0
   - name: sw3
-    disk_src: files/disks/VEOSLAB4253M.qcow2
+    disk_src: files/disks/vEOS-lab-4.27.1M
     kb_mem: 2097152
     eos_config: templates/startup-config
     system_id: "5054.0303.0303"
@@ -53,7 +53,7 @@ vms:
     ma1_mac: "50:54:03:03:03:03"
     ma1_ip: "10.100.0.153/24"
     default_gw: "10.100.0.1"
-    ma1_host_dev: enp9s0
+    ma1_host_dev: eno1
     user: admin
     pass: admin123
     interfaces:
